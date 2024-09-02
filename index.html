@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuchen Gong website project</title>
+    <style>
+        h1 {
+            font-size: 60px;
+            color: darkgreen;
+        }
+
+        body {
+            background-color: #B1C8D4;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .popup-box {
+            width: 300px;
+            height: auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            margin-top: 10px;
+        }
+
+        .link {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .color-choice {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            margin: 2px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        .tool-links ul {
+            padding: 0;
+        }
+
+        .tool-links li {
+            list-style: none;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Gongle</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="basic-tools" class="link">Basic Tools</a></li>
+                <div id="basic-tools-box" class="popup-box">
+
+                    <div class="tool-links">
+                        <ul>
+                            <li><a href="https://mail.google.com" target="_blank">Gmail</a></li>
+                            <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                            <li><a href="https://docs.google.com" target="_blank">Google Docs</a></li>
+                            <li><a href="https://drive.google.com" target="_blank">Google Drive</a></li>
+                            <li><a href="https://calendar.google.com" target="_blank">Google Calendar</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <li><a href="#" id="settings" class="link">Settings</a></li>
+                <div id="settings-box" class="popup-box">
+                    <h3>Choose Background Color</h3>
+                    <div id="color-palette">
+                        <div class="color-choice" style="background-color: #708090;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #778899;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #B0C4DE;" data-text-color="#333333"></div>
+                        <div class="color-choice" style="background-color: #4682B4;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #5F9EA0;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #6495ED;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #d0e78b;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #afa4eb;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #8FBC8F;" data-text-color="#333333"></div>
+                        <div class="color-choice" style="background-color: #556B2F;" data-text-color="#FFFFFF"></div>
+                        <div class="color-choice" style="background-color: #66CDAA;" data-text-color="#333333"></div>
+                        <div class="color-choice" style="background-color: #8B4513;" data-text-color="#FFFFFF"></div>
+                    </div>
+                </div>
+
+                <li><a href="#" id="account" class="link">Account</a></li>
+                <div id="account-box" class="popup-box">Account Information</div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>What do you want to ask today?</h2>
+        <form action="https://www.google.com/search" method="GET">
+            <input type="text" name="q" required placeholder="Type your query here">
+            <button type="submit">Search</button>
+        </form>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const colorChoices = document.querySelectorAll('.color-choice');
+            colorChoices.forEach(color => {
+                color.addEventListener('click', () => {
+                    const textColor = color.getAttribute('data-text-color');
+                    document.body.style.backgroundColor = color.style.backgroundColor;
+                    document.querySelector('h1').style.color = textColor;
+                });
+            });
+
+            const links = document.querySelectorAll('.link');
+            links.forEach(link => {
+                const boxId = link.id + '-box';
+                const box = document.getElementById(boxId);
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    document.querySelectorAll('.popup-box').forEach(popup => {
+                        popup.style.display = 'none';
+                    });
+
+                    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
