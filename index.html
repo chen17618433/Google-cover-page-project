@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuchen Gong website project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Gongle</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="basic-tools" class="link">Basic Tools</a>
+                    <div id="basic-tools-box" class="popup-box">
+                        <div class="tool-links">
+                            <ul>
+                                <li><a href="https://mail.google.com" target="_blank">Gmail</a></li>
+                                <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                                <li><a href="https://docs.google.com" target="_blank">Google Docs</a></li>
+                                <li><a href="https://drive.google.com" target="_blank">Google Drive</a></li>
+                                <li><a href="https://calendar.google.com" target="_blank">Google Calendar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#" id="settings" class="link">Settings</a>
+                    <div id="settings-box" class="popup-box">
+                        <h3>Choose Background Color</h3>
+                        <div id="color-palette">
+                            <div class="color-choice" style="background-color: #708090;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #778899;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #B0C4DE;" data-text-color="#333333">
+                            </div>
+                            <div class="color-choice" style="background-color: #4682B4;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #5F9EA0;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #6495ED;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #d0e78b;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #afa4eb;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #8FBC8F;" data-text-color="#333333">
+                            </div>
+                            <div class="color-choice" style="background-color: #556B2F;" data-text-color="#FFFFFF">
+                            </div>
+                            <div class="color-choice" style="background-color: #66CDAA;" data-text_color="#333333">
+                            </div>
+                            <div class="color-choice" style="background-color: #8B4513;" data-text-color="#FFFFFF">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#" id="account" class="link">Account</a>
+                    <div id="account-box" class="popup-box">Account Information</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="https://www.google.com/search" method="GET">
+            <input type="text" name="q" required placeholder="What do you want to ask today?">
+        </form>
+        <div class="modal-button-container">
+            <div class="circle" onclick="document.getElementById('myModal').style.display='flex'">+</div>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+                <input type="text" id="shortcutName" placeholder="please input the name of the website">
+                <input type="url" id="shortcutURL" placeholder="please input the address of the website">
+                <button onclick="addShortcut()">添加</button>
+            </div>
+        </div>
+        <div id="shortcutsList"></div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const colorChoices = document.querySelectorAll('.color-choice');
+            colorChoices.forEach(color => {
+                color.addEventListener('click', function () {
+                    const textColor = this.getAttribute('data-text-color');
+                    document.body.style.backgroundColor = this.style.backgroundColor;
+                    document.querySelector('h1').style.color = textColor;
+                });
+            });
+
+            const links = document.querySelectorAll('.link');
+            links.forEach(link => {
+                const boxId = link.id + '-box';
+                const box = document.getElementById(boxId);
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.querySelectorAll('.popup-box').forEach(popup => {
+                        popup.style.display = 'none';
+                    });
+                    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        });
+
+        function addShortcut() {
+            var name = document.getElementById('shortcutName').value;
+            var url = document.getElementById('shortcutURL').value;
+            if (name && url) {
+                var list = document.getElementById('shortcutsList');
+                var entry = document.createElement('div');
+                entry.innerHTML = `<a href="${url}" target="_blank">${name}</a>`;
+                list.appendChild(entry);
+                document.getElementById('myModal').style.display = 'none';
+            } else {
+                alert('please input the full name or address of the website');
+            }
+        }
+    </script>
+</body>
+
+</html>
